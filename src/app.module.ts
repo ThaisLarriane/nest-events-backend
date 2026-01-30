@@ -16,7 +16,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     driver: require('mysql2'),
     entities: [Event],
     synchronize: true
-  })],
+  }),
+  TypeOrmModule.forFeature([Event])
+],
   controllers: [AppController, EventsController],
   providers: [AppService],
 })
