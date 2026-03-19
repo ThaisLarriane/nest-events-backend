@@ -1,4 +1,4 @@
-import { Event } from "./event-entity";
+import { Event } from "./event.entity";
 import { Body, Controller, Delete, Get, HttpCode, NotFoundException, Param, Patch, Post, ValidationPipe} from "@nestjs/common";
 import { CreateEventDto } from "./create-event.dto";
 import { UpdateEventDto } from "./update-event.dto";
@@ -9,8 +9,8 @@ import { InjectRepository } from "@nestjs/typeorm";
 export class EventsController{
     constructor(
         @InjectRepository(Event)
-        private readonly repository: Repository<Event>){
-    }
+        private readonly repository: Repository<Event>
+    ){}
 
     @Get()
     async findAll() {
