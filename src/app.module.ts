@@ -6,15 +6,18 @@ import { EventsController } from './events/events.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EventsModule } from './events/events.module';
 import { AppJapanService } from './app.japan.service';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [TypeOrmModule.forRoot({
+  imports: [
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRoot({
     type: 'mysql',
-    host: '127.0.0.1',
-    port: 3306,
-    username: 'root',
-    password: 'example', 
-    database: 'nest-events',
+    host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT),
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD, 
+    database: process.env.DB_NAME,
     driver: require('mysql2'),
     entities: [Event],
     synchronize: true
@@ -25,7 +28,7 @@ import { AppJapanService } from './app.japan.service';
   providers: [
     {
       provide: AppService,
-      useClass: AppService
+      useClass: AppJapanService
     }
   ],
 })
